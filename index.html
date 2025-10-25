@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ATM Interface</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="atmApp">
+    <header class="atm-header">
+      <h1 class="atm-brand">FlexATM</h1>
+      <p class="atm-subtitle">Basic ATM UI for JavaScript Practice</p>
+    </header>
+
+    <main class="atm-main">
+      <!-- Left side: screen + keypad -->
+      <section class="atm-screen">
+        <div id="displayScreen">
+          <div class="screen-top">
+            <div class="screen-row">
+              <span class="screen-label">Account:</span>
+              <span id="accountLabel"></span id="accountType">type</span> xxx xxx</span>
+            </div>
+            <div class="screen-row">
+              <span class="screen-label">Balance:</span>
+              <span id="balanceDisplay">$</span>
+            </div>
+          </div>
+
+          <div id="messageLine">Welcome! Please enter your PIN.</div>
+
+          <div class="input-group">
+            <label for="pinInput">PIN</label>
+            <input id="pinInput" type="password" maxlength="6" placeholder="••••" />
+          </div>
+
+          <div class="input-group">
+            <label for="amountInput">Amount</label>
+            <input id="amountInput" type="number" placeholder="0.00" />
+          </div>
+
+          <div id="keypad">
+            <button class="keyBtn" data-key="1">1</button>
+            <button class="keyBtn" data-key="2">2</button>
+            <button class="keyBtn" data-key="3">3</button>
+            <button class="keyBtn" data-key="4">4</button>
+            <button class="keyBtn" data-key="5">5</button>
+            <button class="keyBtn" data-key="6">6</button>
+            <button class="keyBtn" data-key="7">7</button>
+            <button class="keyBtn" data-key="8">8</button>
+            <button class="keyBtn" data-key="9">9</button>
+            <button class="keyBtn" data-key="clear">C</button>
+            <button class="keyBtn" data-key="0">0</button>
+            <button class="keyBtn" data-key="enter">↵</button>
+            
+          </div>
+        </div>
+      </section>
+
+      <!-- Right side: actions and history -->
+      <aside class="atm-controls">
+        <div class="card-slot" id="cardSlot">
+          <span>💳 Insert Card</span>
+          <small>Slot ready</small>
+        </div>
+
+        <!-- Account Selection Popup -->
+<div id="accountPopup" class="popup hidden">
+  <div class="popup-content"> 
+    <h2>Select an Account</h2>
+    <div id="accountOptions">
+      <button class="accountBtn" data-account="checking">💰 Checking — ****1234</button>
+      <button class="accountBtn" data-account="savings">🏦 Savings — ****5678</button>
+      <button class="accountBtn" data-account="business">💼 Business — ****9999</button>
+    </div>
+    <button id="closePopup" class="closeBtn">Cancel</button>
+  </div>
+</div>
+
+
+        <div class="actions">
+          <button id="actionWithdrawBtn" class="actionBtn primary">Withdraw</button>
+          <button id="actionDepositBtn" class="actionBtn secondary">Deposit</button>
+          <button id="actionBalanceBtn" class="actionBtn secondary">Check Balance</button>
+          <button id="actionCancelBtn" class="actionBtn danger">Cancel</button>
+        </div>
+
+        <div class="transactions">
+          <h3>Recent Transactions</h3>
+          <div id="transactionList">
+            <div class="tx-item"><span>Withdrawal</span><strong>-$40.00</strong></div>
+            <div class="tx-item"><span>Deposit</span><strong>+$200.00</strong></div>
+          </div>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="atm-footer">
+      <small>Practice JavaScript with clean HTML structure</small>
+      <small>v2.0</small>
+    </footer>
+  </div>
+</body>
+</html>
