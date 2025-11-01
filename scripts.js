@@ -178,16 +178,46 @@ document.addEventListener("DOMContentLoaded", () => {
       ],
     },
   ];
+   //---------------------------------//
+  // *** Set activeUser Function *** // 
+ //---------------------------------//
+//this function sets the active user based on the user selected in the accountOptions popup
+//this sets the selected user as the current focus for manipulation 
 
-  let activeUser = null; // will hold the currently logged-in user
   function setActiveUser(userName) {
     activeUser = clients.find(client => client.userName.toLowerCase() === userName.toLowerCase());
     if (activeUser) {
         console.log("Active user set to:", activeUser.userName);
         document.getElementById("messageLine").textContent = `Welcome, ${activeUser.userName}!`;
-  }
-  };
-  window.setActiveUser = setActiveUser; // expose globally for testing
+    }
+};
+window.setActiveUser = setActiveUser;
+
+  // account popup buttons
+  let activeUser = null;
+const accountButtons = document.querySelectorAll("#accountOptions .accountBtn");
+
+accountButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+    const selectedName = btn.dataset.account; // e.g., "Jenny"
+    if (!selectedName) return;
+
+    // find user and set activeUser
+    setActiveUser(selectedName);
+
+    // clear PIN input when user changes
+    const pinInput = document.getElementById("pinInput");
+    if (pinInput) pinInput.value = "";
+
+    // close the popup
+    document.getElementById("accountPopup").classList.add("hidden");
+
+    // log for debugging
+    console.log("Selected account:", selectedName, "Active user:", activeUser);
+  });
+});
+
+  
   window.clients = clients; // expose globally for testing
   console.log("clients loaded:", userNames = clients.map(c => c.userName));
   
