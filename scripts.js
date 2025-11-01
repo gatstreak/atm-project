@@ -1,4 +1,6 @@
-// pin pad functionality
+    //-------------------------------//
+    // *** pin pad functionality *** //
+    //-------------------------------//
 document.addEventListener("DOMContentLoaded", () => {
   const pinInput = document.getElementById("pinInput");
   const amountInput = document.getElementById("amountInput");
@@ -46,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (target.maxLength && target.value.length >= Number(target.maxLength))
         return;
       target.value = (target.value || "") + ch;
-      messageLine.textContent = "pin:*".repeat(target.value.length); // short status
+      messageLine.textContent = "*".repeat(target.value.length); // visual indicator of pin input (*)
       return;
     }
     // Amount rules: single '.', max 2 decimals
@@ -82,7 +84,9 @@ document.addEventListener("DOMContentLoaded", () => {
   amountInput.addEventListener("click", () => setTarget(amountInput));
   amountInput.addEventListener("focus", () => setTarget(amountInput));
 
-  //attach keypad handlers (clear handled here; ignore enter for now )
+    //---------------------------------------------------------------------------//
+   // *** attach keypad handlers (clear handled here; enter for submission) *** //
+  //---------------------------------------------------------------------------//
   keypadButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const val = btn.value?.toString();
@@ -97,11 +101,18 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
       // for submission later
-      if (val.toLowerCase() === "enter") return;
-
+      if (val.toLowerCase() === "enter") {
+        // simple console.log of current values 
+        // will need to take pinInput.value and compare it to user pin on submission
+        console.log("amount:", amountInput.value, "pin:", pinInput.value);
+        messageLine.textContent = "Submitted";
+        return;
+      }
+    
       insertToTarget(val);
     });
   });
+
   // ***debugger*** //
   document.addEventListener("focusin", () => {
     console.log(
@@ -109,8 +120,9 @@ document.addEventListener("DOMContentLoaded", () => {
       document.activeElement.id || document.activeElement.tagName
     );
   });
-
+   //---------------------------------//
   // ***card picker functionality*** //
+ //---------------------------------//
   const cardSlot = document.getElementById("cardSlot");
   const closePopupBtn = document.getElementById("closePopup");
   // card slot click to open popup
@@ -128,9 +140,11 @@ document.addEventListener("DOMContentLoaded", () => {
   actionAccountTypeBtn.addEventListener("click", function () {
     document.getElementById("accountMenuDropDown").classList.toggle("hidden");
   });
-
-  // *** users ***
+    //---------------//
+    // *** users *** //
+    //---------------//
   const clients = [
+    // user #1 (jenny)
     {
       userName: "jenny",
       cardNumber: "002-5678-901",
@@ -141,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { type: "credit", balance: -500.0, accountNumber: "CRD-002" },
       ],
     },
-    // user #2
+    // user #2 (mike)
     {
       userName: "mike",
       cardNumber: "003-6789-012",
@@ -152,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
         { type: "credit", balance: -1200.0, accountNumber: "CRD-005" },
       ],
     },
-    // user #3
+    // user #3 (sara)
     {
       userName: "sara",
       cardNumber: "004-7890-123",
@@ -164,4 +178,17 @@ document.addEventListener("DOMContentLoaded", () => {
       ],
     },
   ];
-}); // end of dom container
+
+  let activeUser = null; // will hold the currently logged-in user
+  function setActiveUser(userName) {
+    activeUser = clients.find(client => client.userName.toLowerCase() === userName.toLowerCase());
+    if (activeUser) {
+        console.log("Active user set to:", activeUser.userName);
+        document.getElementById("messageLine").textContent = `Welcome, ${activeUser.userName}!`;
+  }
+  };
+  window.setActiveUser = setActiveUser; // expose globally for testing
+  window.clients = clients; // expose globally for testing
+  console.log("clients loaded:", userNames = clients.map(c => c.userName));
+  
+}); // **********************! end of dom container !********************** //
