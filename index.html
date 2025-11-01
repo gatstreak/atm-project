@@ -37,7 +37,7 @@
 
           <div class="input-group">
             <label for="amountInput">Amount</label>
-            <input id="amountInput" type="number" placeholder="0.00" />
+            <input id="amountInput" type="text" placeholder="0.00" />
           </div>
 
           <div id="keypad">
@@ -63,26 +63,31 @@
         <div class="card-slot" id="cardSlot">
           <span>💳 Insert Card</span>
           <small>Slot ready</small>
+          <div class="card-slot-display"></div>
         </div>
 
         <!-- Account Selection Popup -->
-<div id="accountPopup" class="popup hidden">
-  <div class="popup-content"> 
-    <h2>Select an Account</h2>
-    <div id="accountOptions">
-      <button class="accountBtn" data-account="checking">💰 Checking — ****1234</button>
-      <button class="accountBtn" data-account="savings">🏦 Savings — ****5678</button>
-      <button class="accountBtn" data-account="business">💼 Business — ****9999</button>
+    <div id="accountPopup" class="popup hidden">
+      <div class="popup-content">
+         <h2>Select an Account</h2>
+         <div id="accountOptions">
+              <button class="accountBtn" data-account="Jenny">Jenny 002-5678-***</button>
+              <button class="accountBtn" data-account="Mike">Mike 003-6789-***</button>
+             <button class="accountBtn" data-account="Sara">Sara 004-7890-***</button>
+         </div>
+        <button id="closePopup" class="closeBtn">Cancel</button>
+      </div>
     </div>
-    <button id="closePopup" class="closeBtn">Cancel</button>
-  </div>
-</div>
-
 
         <div class="actions">
           <button id="actionWithdrawBtn" class="actionBtn primary">Withdraw</button>
           <button id="actionDepositBtn" class="actionBtn secondary">Deposit</button>
-          <button id="actionBalanceBtn" class="actionBtn secondary">Check Balance</button>
+          <button id="actionAccountTypeBtn" class="actionBtn secondary">Change account type</button>
+          <div id="accountMenuDropDown" class="hidden" >
+            <span >CHQ</span>
+            <span >SAV</span>
+            <span >CRD</span>
+          </div>
           <button id="actionCancelBtn" class="actionBtn danger">Cancel</button>
         </div>
 

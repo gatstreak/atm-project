@@ -134,6 +134,21 @@ body {
   text-align: center;
 }
 
+.card-slot-display {
+  display: none;
+  margin-top: 1rem;
+  background: white;
+  color: var(--text);
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+.card-slot-display:hover {
+  display: block;
+  background: #f3f4f6;
+  border: #007bff 1px solid;
+}
+
 /* Popup overlay */
 .popup {
   position: fixed;
@@ -184,6 +199,16 @@ body {
   color: white;
 }
 
+/* #accountMenuDropDown {
+  display: none;
+  flex-direction: column;
+  margin-top: 0.5rem;
+} */
+
+.hidden {
+  display: none;
+}
+
 /* Cancel button */
 .closeBtn {
   background: #e11d48;
@@ -194,7 +219,6 @@ body {
   cursor: pointer;
   font-weight: 600;
 }
-
 
 .actions {
   display: flex;
