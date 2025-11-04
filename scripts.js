@@ -41,24 +41,27 @@
     },
   ];
 
-   function setActiveUser(userName) {
+function setActiveUser(userName) {
     activeUser = clients.find(client => client.userName.toLowerCase() === userName.toLowerCase());
-    if (activeUser) {
+        if (activeUser) {
         console.log("Active user set to:", activeUser.userName);
         document.getElementById("messageLine").textContent = `Welcome, ${activeUser.userName}!`;
     }
-};
     
+};
+window.setActiveUser = setActiveUser;
 // end of back end 
 
     //-------------------------------//
     // *** pin pad functionality *** //
     //-------------------------------//
 document.addEventListener("DOMContentLoaded", () => {
-  const pinInput = document.getElementById("pinInput");
-  const amountInput = document.getElementById("amountInput");
-  const keypadButtons = document.querySelectorAll(".keyBtn");
-  const messageLine = document.getElementById("messageLine");
+     const pinInput = document.getElementById("pinInput");
+     const amountInput = document.getElementById("amountInput");
+     const keypadButtons = document.querySelectorAll(".keyBtn");
+     const messageLine = document.getElementById("messageLine");
+
+     
 
   // makes sure pin input is focusable even if read-only
   if (pinInput) pinInput.tabIndex = 0;
@@ -153,30 +156,54 @@ document.addEventListener("DOMContentLoaded", () => {
         clearTarget();
         return;
       }
-      // for submission later
+      // Submission function
       if (val.toLowerCase() === "enter") {
+         const PIN_LENGTH =4;
+        const enteredPin = String(pinInput.value).trim();
+        const activeUserPin = String(activeUser.pin).trim();
+       if (enteredPin.length !== PIN_LENGTH) {
+         messageLine.textContent = `Please enter a ${PIN_LENGTH}-digit PIN`;
+         return;
+  }
         // simple console.log of current values 
         // >>> will need to take pinInput.value and compare it to user pin on submission <<< //
-        console.log("amount:", amountInput.value, "pin:", pinInput.value);
-        messageLine.textContent = "Submitted";
-        return;
-      }
+        console.log("amount:", amountInput.value, "pin:", pinInput.value, enteredPin);
+        // messageLine.textContent = "Submitted";s
 
-      const enteredPin = pinInput.value
-    
-      if (enteredPin === activeUser.pin){
-        messageLine.textContent = 'Pin Correct! Welcome, ${activeUser.username}.';
+         if (enteredPin === activeUserPin){
+        messageLine.textContent = `Pin Correct! Welcome, ${activeUser.userName}.`;
         console.log("Pin correct ")
+      } else {
+        messageLine.textContent = "Incorrect!"
+        return
       }
 
+       
+      }
+
+                    //============================================================================//
+                    //>>>>>>>>>>>>>>>>>>>>>>>>>TODO<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<// 
+                    // Fix pin compare its currently broken it now wont type from pinpad          //
+                    // this is likely because we are playing around with pinInput.value           //
+                    // we are trying to take it from its value to a string however its not waiting//
+                    //============================================================================//
+
+//         const PIN_LENGTH =4;
+//         const enteredPin = String(pinInput.value).trim();
+//         const activeUserPin = String(activeUser.pin).trim();
+//        if (enteredPin.length !== PIN_LENGTH) {
+//          messageLine.textContent = `Please enter a ${PIN_LENGTH}-digit PIN`;
+//          return;
+//   }
+     
       insertToTarget(val);
     });
   });
-
+  
   // ***debugger*** //
-  document.addEventListener("focusin", () => {
+  document.addEventListener("focusing", () => {
     console.log(
-      "focusin -> activeElement:",
+      "focusing -> activeElement:",
       document.activeElement.id || document.activeElement.tagName
     );
   });
@@ -201,23 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("accountMenuDropDown").classList.toggle("hidden");
   });
   
-//=================================//
-// *** Set activeUser Function *** // 
-//=================================//
-//this function sets the active user based on the user selected in the accountOptions popup
-//this sets the selected user as the current focus for manipulation 
-
-  function setActiveUser(userName) {
-    activeUser = clients.find(client => client.userName.toLowerCase() === userName.toLowerCase());
-    if (activeUser) {
-        console.log("Active user set to:", activeUser.userName);
-        document.getElementById("messageLine").textContent = `Welcome, ${activeUser.userName}!`;
-    }
-};
-window.setActiveUser = setActiveUser;
-
   // account popup buttons
- 
 const accountButtons = document.querySelectorAll("#accountOptions .accountBtn");
 
 accountButtons.forEach(btn => {
