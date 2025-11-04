@@ -1,10 +1,6 @@
-// Back End
-
+// BACK END
  let activeUser = null;
-    
-  //---------------//
-    // *** users *** //
-    //---------------//
+
   const clients = [
     // user #1 (jenny)
     {
@@ -52,16 +48,11 @@ function setActiveUser(userName) {
 window.setActiveUser = setActiveUser;
 // end of back end 
 
-    //-------------------------------//
-    // *** pin pad functionality *** //
-    //-------------------------------//
 document.addEventListener("DOMContentLoaded", () => {
      const pinInput = document.getElementById("pinInput");
      const amountInput = document.getElementById("amountInput");
      const keypadButtons = document.querySelectorAll(".keyBtn");
      const messageLine = document.getElementById("messageLine");
-
-     
 
   // makes sure pin input is focusable even if read-only
   if (pinInput) pinInput.tabIndex = 0;
@@ -139,10 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
   pinInput.addEventListener("focus", () => setTarget(pinInput));
   amountInput.addEventListener("click", () => setTarget(amountInput));
   amountInput.addEventListener("focus", () => setTarget(amountInput));
-
-    //---------------------------------------------------------------------------//
-   // *** attach keypad handlers (clear handled here; enter for submission) *** //
-  //---------------------------------------------------------------------------//
+//   handlers
   keypadButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const val = btn.value?.toString();
@@ -164,11 +152,8 @@ document.addEventListener("DOMContentLoaded", () => {
        if (enteredPin.length !== PIN_LENGTH) {
          messageLine.textContent = `Please enter a ${PIN_LENGTH}-digit PIN`;
          return;
-  }
-        // simple console.log of current values 
-        // >>> will need to take pinInput.value and compare it to user pin on submission <<< //
+    }
         console.log("amount:", amountInput.value, "pin:", pinInput.value, enteredPin);
-        // messageLine.textContent = "Submitted";s
 
          if (enteredPin === activeUserPin){
         messageLine.textContent = `Pin Correct! Welcome, ${activeUser.userName}.`;
@@ -176,40 +161,20 @@ document.addEventListener("DOMContentLoaded", () => {
       } else {
         messageLine.textContent = "Incorrect!"
         return
-      }
-
-       
-      }
-
-                    //============================================================================//
-                    //>>>>>>>>>>>>>>>>>>>>>>>>>TODO<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<// 
-                    // Fix pin compare its currently broken it now wont type from pinpad          //
-                    // this is likely because we are playing around with pinInput.value           //
-                    // we are trying to take it from its value to a string however its not waiting//
-                    //============================================================================//
-
-//         const PIN_LENGTH =4;
-//         const enteredPin = String(pinInput.value).trim();
-//         const activeUserPin = String(activeUser.pin).trim();
-//        if (enteredPin.length !== PIN_LENGTH) {
-//          messageLine.textContent = `Please enter a ${PIN_LENGTH}-digit PIN`;
-//          return;
-//   }
-     
+      }    
+    }
       insertToTarget(val);
     });
-  });
-  
-  // ***debugger*** //
+});
+//   debugger
   document.addEventListener("focusing", () => {
     console.log(
       "focusing -> activeElement:",
       document.activeElement.id || document.activeElement.tagName
     );
   });
-   //---------------------------------//
-  // ***card picker functionality*** //
- //---------------------------------//
+   
+//   card picking
   const cardSlot = document.getElementById("cardSlot");
   const closePopupBtn = document.getElementById("closePopup");
   // card slot click to open popup
