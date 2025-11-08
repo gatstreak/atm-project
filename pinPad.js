@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", () => {
   pinInput.addEventListener("focus", () => setTarget(pinInput));
   amountInput.addEventListener("click", () => setTarget(amountInput));
   amountInput.addEventListener("focus", () => setTarget(amountInput));
-//   handlers
+  //   handlers
   keypadButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const val = btn.value?.toString();

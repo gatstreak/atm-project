@@ -1,3 +1,4 @@
+
 export const clients = [
     // user #1 (jenny)
     {
